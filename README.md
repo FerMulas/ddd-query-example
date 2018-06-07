@@ -13,8 +13,8 @@ I provided a simple html/JS client to show the data sorted in table format. Clie
 
 Once the docker containers are running you should be able to access to client or api with these url:
 
-- API: 0.0.0.0:8090
-- Client: 0.0.0.0:8091
+- **API**: 0.0.0.0:8090
+- **Client**: 0.0.0.0:8091
 
 Some request examples:
 - http://0.0.0.0:8090/apartments
@@ -24,13 +24,13 @@ Some request examples:
 - http://0.0.0.0:8090/apartments?page=1&pageSize=30&ordinationField=title&ordinationDirection=DESC
 
 Query request parameters available and their accepted values:
-- page (any positive number)
-- pageSize (any positive number)
-- ordinationField (id, title, link, city, mainImage) 
-- ordinationDirection (ASC, DESC)
+- **page** (any positive number)
+- **pageSize** (any positive number)
+- **ordinationField** (id, title, link, city, mainImage) 
+- **ordinationDirection** (ASC, DESC)
 
 If the request does not contains one or more of the parameters available they will take the following default values:
-- page: 1
-- pageSize: 10
-- ordinationField: 'id'
-- ordinationDirection: 'ASC'
+- **page**: 1
+- **pageSize**: 10
+- **ordinationField**: 'id'
+- **ordinationDirection**: 'ASC'
