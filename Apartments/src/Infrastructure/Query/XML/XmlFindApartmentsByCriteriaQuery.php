@@ -30,15 +30,13 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
     {
         $apartments = $this->getXmlArray()['ad'];
 
-        $page = $queryCriteria->page();
-
         $results = $this->sorter->sortByField($queryCriteria->ordinationField(), $apartments);
 
         list($totalResults, $totalPages, $resultsCount, $pageResults) = $this->getPagination($queryCriteria, $results);
 
         $resultList = $this->ConvertResultsFormat($pageResults);
 
-        return new QueryResult($resultsCount, $totalResults, $page, $totalPages, new \ArrayIterator($resultList));
+        return new QueryResult($resultsCount, $totalResults, $queryCriteria->page(), $totalPages, new \ArrayIterator($resultList));
     }
 
     public function getXmlArray()

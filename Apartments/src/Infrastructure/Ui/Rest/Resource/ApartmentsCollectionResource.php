@@ -10,7 +10,6 @@ use Lukasoppermann\Httpstatus\Httpstatuscodes;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use Zend\Stdlib\Parameters;
 
 class ApartmentsCollectionResource extends AbstractRestFulMiddleware
 {
