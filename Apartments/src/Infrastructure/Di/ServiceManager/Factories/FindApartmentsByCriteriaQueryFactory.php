@@ -3,6 +3,7 @@
 namespace Apartments\Infrastructure\Di\ServiceManager\Factories;
 
 use Apartments\Infrastructure\Query\XML\XmlFindApartmentsByCriteriaQuery;
+use Common\ArraySort\Sorter;
 use Psr\Container\ContainerInterface;
 
 class FindApartmentsByCriteriaQueryFactory
@@ -15,6 +16,6 @@ class FindApartmentsByCriteriaQueryFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        return new XmlFindApartmentsByCriteriaQuery();
+        return new XmlFindApartmentsByCriteriaQuery(new Sorter());
     }
 }

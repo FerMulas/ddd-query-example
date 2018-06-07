@@ -29,6 +29,8 @@ class GetApartmentsService implements ApplicationService
      */
     public function execute($request = null)
     {
-        return $this->findApartmentsByCriteriaQuery->find($request->criteria());
+        $apartmentList = $this->findApartmentsByCriteriaQuery->find($request->criteria());
+
+        return $apartmentList;
     }
 }

@@ -8,9 +8,9 @@ class QueryCriteria
      */
     private $filter;
     /**
-     * @var array
+     * @var string
      */
-    private $ordination;
+    private $ordinationField;
     /**
      * @var int
      */
@@ -23,14 +23,14 @@ class QueryCriteria
     /**
      * QueryCriteria constructor.
      * @param array $filter
-     * @param array $ordination
+     * @param string $ordinationField
      * @param int $page
      * @param int $pageSize
      */
-    public function __construct(array $filter, array $ordination, int $page, int $pageSize)
+    public function __construct(array $filter, string $ordinationField, int $page, int $pageSize)
     {
         $this->filter = $filter;
-        $this->ordination = $ordination;
+        $this->ordinationField = $ordinationField;
         $this->page = $page;
         $this->pageSize = $pageSize;
     }
@@ -44,11 +44,11 @@ class QueryCriteria
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function ordination(): array
+    public function ordinationField(): string
     {
-        return $this->ordination;
+        return $this->ordinationField;
     }
 
     /**

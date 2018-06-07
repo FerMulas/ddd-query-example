@@ -13,7 +13,7 @@ class GetApartmentsRequest
 
     public function __construct(
         array $filter,
-        array $ordination,
+        string $ordination,
         int $page,
         int $pageSize
     )

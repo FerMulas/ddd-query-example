@@ -22,10 +22,10 @@ class ApartmentsCollectionResource extends AbstractRestFulMiddleware
         $urlQueryParameters = $request->getQueryParams();
 
         try {
-            $carList = $this->applicationService(GetApartmentsService::class)->execute(
+            $apartmentList = $this->applicationService(GetApartmentsService::class)->execute(
                 new GetApartmentsRequest(
                     [],
-                    [],
+                    'id',
                     1,
                     10)
             );
@@ -33,7 +33,7 @@ class ApartmentsCollectionResource extends AbstractRestFulMiddleware
             return new JsonResponse($exception->getMessage(), Httpstatuscodes::HTTP_BAD_REQUEST);
         }
 
-        return (new JsonResponse($carList->getJsonData(), Httpstatuscodes::HTTP_OK))
+        return (new JsonResponse($apartmentList, Httpstatuscodes::HTTP_OK))
             ->withStatus(200, 'OK');
     }
 }
