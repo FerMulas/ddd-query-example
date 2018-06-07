@@ -4,15 +4,15 @@ namespace Common\Domain\ArraySort;
 
 class Sorter
 {
-    public function sortByField(string $field, array $list)
+    public function sortByField(string $field, string $direction, array $list)
     {
         switch (gettype($field)) {
             case "string":
-                $list = $this->sortStringType($field, $list);
+                $list = $this->sortStringType($field, $direction, $list);
                 break;
             case "integer":
             case "double":
-                $list = $this->sortNumberType($field, $list);
+                $list = $this->sortNumberType($field, $direction, $list);
                 break;
             default:
                 break;
@@ -26,9 +26,9 @@ class Sorter
      * @param $list
      * @return mixed
      */
-    private function sortNumberType(string $field, array $list)
+    private function sortNumberType(string $field, string $direction, array $list)
     {
-        usort($list, function ($value1, $value2) use ($field) {
+        usort($list, function ($value1, $value2) use ($field, $direction) {
             if (!key_exists($field, $value1) || !key_exists($field, $value2)) {
                 throw FieldNotFoundSortException::withField($field);
             }
@@ -36,7 +36,14 @@ class Sorter
                 return 0;
             }
 
-            return ($value1[$field] < $value2[$field]) ? -1 : 1;
+            if ($direction === 'DESC') {
+
+                return ($value1[$field] > $value2[$field]) ? -1 : 1;
+            } else {
+
+                return ($value1[$field] < $value2[$field]) ? -1 : 1;
+            }
+
         });
         return $list;
     }
@@ -46,14 +53,19 @@ class Sorter
      * @param $list
      * @return mixed
      */
-    private function sortStringType(string $field, array $list)
+    private function sortStringType(string $field, string $direction, array $list)
     {
-        usort($list, function ($value1, $value2) use ($field) {
+        usort($list, function ($value1, $value2) use ($field, $direction) {
             if (!key_exists($field, $value1) || !key_exists($field, $value2)) {
                 throw FieldNotFoundSortException::withField($field);
             }
+            if ($direction === 'DESC') {
 
-            return strcmp($value1[$field], $value2[$field]);
+                return strcmp($value2[$field], $value1[$field]);
+            } else {
+
+                return strcmp($value1[$field], $value2[$field]);
+            }
         });
         return $list;
     }
