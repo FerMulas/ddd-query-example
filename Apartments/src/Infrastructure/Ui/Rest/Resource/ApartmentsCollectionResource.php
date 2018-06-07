@@ -21,13 +21,14 @@ class ApartmentsCollectionResource extends AbstractRestFulMiddleware
     {
         $urlQueryParameters = $request->getQueryParams();
 
+
         try {
             $apartmentList = $this->applicationService(GetApartmentsService::class)->execute(
                 new GetApartmentsRequest(
                     [],
-                    'id',
-                    1,
-                    10)
+                    $urlQueryParameters['ordinationField'] ?? 'id',
+                    $urlQueryParameters['page'],
+                    $urlQueryParameters['pageSize'])
             );
         } catch (\Exception $exception) {
             return new JsonResponse($exception->getMessage(), Httpstatuscodes::HTTP_BAD_REQUEST);

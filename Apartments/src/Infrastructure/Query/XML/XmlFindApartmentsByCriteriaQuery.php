@@ -30,14 +30,11 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
     {
         $apartments = $this->getXmlArray()['ad'];
 
-        $resultsCount = 0;
-        $totalResults = 0;
-        $totalPages = 0;
         $page = $queryCriteria->page();
 
         $results = $this->sorter->sortByField($queryCriteria->ordinationField(), $apartments);
 
-        list($totalResults, $totalPages, $resultsCount, $pageResults) = $this->getPagination($queryCriteria, $results, $totalResults, $resultsCount);
+        list($totalResults, $totalPages, $resultsCount, $pageResults) = $this->getPagination($queryCriteria, $results);
 
         $resultList = $this->ConvertResultsFormat($pageResults);
 
@@ -61,6 +58,8 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
      */
     private function ConvertResultsFormat($pageResults)
     {
+        $resultList = [];
+
         foreach ($pageResults as $result) {
             $res = [
                 'id' => $result['id'],
@@ -75,12 +74,15 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
     /**
      * @param QueryCriteria $queryCriteria
      * @param $results
-     * @param $totalResults
-     * @param $resultsCount
      * @return array
      */
-    private function getPagination(QueryCriteria $queryCriteria, $results, $totalResults, $resultsCount): array
+    private function getPagination(QueryCriteria $queryCriteria, $results): array
     {
+        $totalResults = 0;
+        $resultsCount = 0;
+        $totalPages = 0;
+        $pageResults = [];
+
         foreach ($results as $apartment) {
             $found = true;
             $filterList = $queryCriteria->filter();
