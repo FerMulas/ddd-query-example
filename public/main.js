@@ -14,8 +14,6 @@ function getAppartments() {
     var xmlHttp = new XMLHttpRequest();
     createQuery();
 
-    console.log(query);
-
     xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState === 4) {
             if (xmlHttp.status === 200) {
@@ -54,8 +52,6 @@ function getAppartments() {
         }
     };
 
-    console.log(query);
-
     xmlHttp.open("GET", "http://0.0.0.0:8090/apartments?" + query, true);
 
     xmlHttp.send();
@@ -65,7 +61,6 @@ function getAppartments() {
 
 function resetArrowSymbols() {
     for (var col in columns) {
-        console.log(columns[col] + 'Ordination');
         document.getElementById(columns[col] + 'Ordination').classList.add("fa-sort");
         document.getElementById(columns[col] + 'Ordination').classList.remove("fa-sort-down");
         document.getElementById(columns[col] + 'Ordination').classList.remove("fa-sort-up");
@@ -83,8 +78,14 @@ function reset(resetAll) {
         document.getElementById("paginatorList").remove();
     }
 
-    if (resetAll) {
-        ordinationField = null;
+    if (document.contains(document.getElementById("paginatorList"))) {
+        document.getElementById("paginatorList").remove();
+    }
+
+    if (resetAll === true) {
+        ordination['field'] = null;
+        ordination['direction'] = null;
+        currentPage = 1;
         resetArrowSymbols();
     }
 }

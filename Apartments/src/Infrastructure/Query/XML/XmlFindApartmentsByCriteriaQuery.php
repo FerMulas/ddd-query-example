@@ -121,7 +121,7 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
         $arrayResult = [];
         foreach ($apartments['ad'] as $apartment) {
             $resultWithNeedleFields = [
-                'id' => $apartment['id'],
+                'id' => intval($apartment['id']),
                 'link' => $apartment['url'],
                 'title' => $apartment['title'],
                 'city' => $apartment['city'],
