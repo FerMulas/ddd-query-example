@@ -199,6 +199,6 @@ function createQuery() {
     query = "page=" + currentPage + "&pageSize=5";
 
     if (ordination['field'] !== null) {
-        query = query + "&ordinationField=" + ordination['field'] + "&ordination=" + ordination['direction'];
+        query = query + "&ordinationField=" + ordination['field'] + "&ordinationDirection=" + ordination['direction'];
     }
 }
