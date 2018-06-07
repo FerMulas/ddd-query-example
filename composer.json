@@ -20,7 +20,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Car\\": "Apartments/src/"
+      "Apartments\\": "Apartments/src/",
+      "Common\\": "Common/src/"
 
     }
   },
@@ -29,7 +30,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "CarTest\\": "Apartments/tests/"
+      "ApartmentsTest\\": "Apartments/tests/"
     }
   },
   "config": {
