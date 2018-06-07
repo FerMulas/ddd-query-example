@@ -2,8 +2,8 @@
 
 namespace Apartments\Application\Query;
 
-use Common\Query\QueryCriteria;
-use Common\Query\QueryResult;
+use Common\Domain\Query\QueryCriteria;
+use Common\Domain\Query\QueryResult;
 
 interface FindApartmentsByCriteriaQuery
 {

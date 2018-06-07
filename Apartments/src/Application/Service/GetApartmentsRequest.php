@@ -2,7 +2,7 @@
 
 namespace Apartments\Application\Service;
 
-use Common\Query\QueryCriteria;
+use Common\Domain\Query\QueryCriteria;
 
 class GetApartmentsRequest
 {

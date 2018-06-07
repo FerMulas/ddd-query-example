@@ -1,5 +1,5 @@
 <?php
-namespace Common\Query;
+namespace Common\Domain\Query;
 
 use ArrayIterator;
 

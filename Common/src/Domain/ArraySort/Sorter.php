@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\ArraySort;
+namespace Common\Domain\ArraySort;
 
 class Sorter
 {
@@ -29,11 +29,14 @@ class Sorter
     private function sortNumberType(string $field, array $list)
     {
         usort($list, function ($value1, $value2) use ($field) {
-            if ($value1 == $value2) {
+            if (!key_exists($field, $value1) || !key_exists($field, $value2)) {
+                throw FieldNotFoundSortException::withField($field);
+            }
+            if ($value1[$field] == $value2[$field]) {
                 return 0;
             }
 
-            return ($value1 < $value2) ? -1 : 1;
+            return ($value1[$field] < $value2[$field]) ? -1 : 1;
         });
         return $list;
     }
@@ -46,6 +49,10 @@ class Sorter
     private function sortStringType(string $field, array $list)
     {
         usort($list, function ($value1, $value2) use ($field) {
+            if (!key_exists($field, $value1) || !key_exists($field, $value2)) {
+                throw FieldNotFoundSortException::withField($field);
+            }
+
             return strcmp($value1[$field], $value2[$field]);
         });
         return $list;
