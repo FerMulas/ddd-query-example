@@ -23,11 +23,11 @@ Some request examples:
 - http://0.0.0.0:8090/apartments?page=1&pageSize=30&ordinationField=title
 - http://0.0.0.0:8090/apartments?page=1&pageSize=30&ordinationField=title&ordinationDirection=DESC
 
-Query request parameters available:
-- page
-- pageSize
-- ordinationField
-- ordinationDirection
+Query request parameters available and their accepted values:
+- page (any positive number)
+- pageSize (any positive number)
+- ordinationField (id, title, link, city, mainImage) 
+- ordinationDirection (ASC, DESC)
 
 If the request does not contains one or more of the parameters available they will take the following default values:
 - page: 1
