@@ -46,7 +46,7 @@ class GetApartmentsServiceTest extends TestCase
     public function shouldReturnAListWithOccurrences()
     {
         $filter = [];
-        $ordination = [];
+        $ordination = 'id';
         $page = 1;
         $pageSize = 10;
 
