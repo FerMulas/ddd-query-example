@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Spotahome exercise demo.</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body id="myDemo">
+<div class="container-fluid">
+    <div class="row justify-content-md-center">
+        <div class="col-6 text-center">
+            <h2>List of Apartments.</h2>
+        </div>
+    </div>
+    
+    <br>
+
+    <div class="col-6 offset-lg-3 text-left">
+        <button onclick="getAppartments()" type="button" class="btn btn-info">Get apartments</button>
+        <span style="cursor: pointer" onclick="reset(true)"><i class="fa fa-times" aria-hidden="true"></i> Reset</span>
+    </div>
+
+    <br>
+
+    <div class="col-6 offset-lg-3">
+        <span class="font-weight-bold text-danger" id="error"> </span>
+    </div>
+
+    <div class="col-6 offset-lg-3">
+        <span class="font-weight-bold text-info" id="success"> </span>
+    </div>
+
+    <div class="col-12 justify-content-md-center">
+        <nav id="pagination" aria-label="Page navigation example">
+        </nav>
+
+        <table class="table table-bordered" id="apartmentTable">
+            <thead>
+            <tr>
+                <th>Id<i id="idOrdination" class="fa fa-fw fa-sort" onclick="changeOrdinationCriteria('id')"></i>
+                </th>
+                <th>Title<i id="titleOrdination" class="fa fa-fw fa-sort"
+                                 onclick="changeOrdinationCriteria('title')"></i>
+                </th>
+                <th>Link<i id="linkOrdination" class="fa fa-fw fa-sort"
+                                 onclick="changeOrdinationCriteria('link')"></i>
+                </th>
+                <th>City<i id="cityOrdination" class="fa fa-fw fa-sort"
+                           onclick="changeOrdinationCriteria('city')"></i>
+                </th>
+                <th>Main Image<i id="mainImageOrdination" class="fa fa-fw fa-sort"
+                           onclick="changeOrdinationCriteria('mainImage')"></i>
+                </th>
+            </tr>
+            </thead>
+            <tbody id="apartmentTableData">
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+
+<script src="main.js"></script>
+</html>
