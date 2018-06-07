@@ -9,7 +9,7 @@ docker/run.sh
 
 I provided a simple (and quite useless test) to test de use case. I just did this to show I use TDD, but in a real scenario this use case (and most of use cases based on query) are usually tested from outside (with curl, from a restlet client, etc). 
 
-I provided a simple html/JS client to show the data sorted in table format.
+I provided a simple html/JS client to show the data sorted in table format. Client and API are deployed using the command written above (API and HTML client are included in same docker composition).
 
 Once the docker containers are running you should be able to access to client or api with these url:
 
