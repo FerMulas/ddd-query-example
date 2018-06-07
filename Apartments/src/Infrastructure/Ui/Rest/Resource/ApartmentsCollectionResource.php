@@ -2,6 +2,7 @@
 
 namespace Apartments\Infrastructure\Ui\Rest\Resource;
 
+use Apartments\Application\Query\FindApartmentsByCriteriaQuery;
 use Apartments\Application\Service\GetApartmentsRequest;
 use Apartments\Application\Service\GetApartmentsService;
 use Apartments\Infrastructure\Ui\Rest\Middleware\AbstractRestFulMiddleware;
@@ -26,8 +27,8 @@ class ApartmentsCollectionResource extends AbstractRestFulMiddleware
                 new GetApartmentsRequest(
                     [],
                     $urlQueryParameters['ordinationField'] ?? 'id',
-                    $urlQueryParameters['page'],
-                    $urlQueryParameters['pageSize'])
+                    $urlQueryParameters['page'] ?? 1,
+                    $urlQueryParameters['pageSize'] ?? FindApartmentsByCriteriaQuery::PAGE_SIZE)
             );
         } catch (\Exception $exception) {
             return new JsonResponse($exception->getMessage(), Httpstatuscodes::HTTP_BAD_REQUEST);
