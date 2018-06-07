@@ -3,8 +3,8 @@
 namespace Apartments\Infrastructure\Query\InMemory;
 
 use Apartments\Application\Query\FindApartmentsByCriteriaQuery;
-use Common\Query\QueryCriteria;
-use Common\Query\QueryResult;
+use Common\Domain\Query\QueryCriteria;
+use Common\Domain\Query\QueryResult;
 
 class InMemoryFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
 {

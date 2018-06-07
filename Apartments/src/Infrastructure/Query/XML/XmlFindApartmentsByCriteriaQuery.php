@@ -3,13 +3,15 @@
 namespace Apartments\Infrastructure\Query\XML;
 
 use Apartments\Application\Query\FindApartmentsByCriteriaQuery;
-use Common\ArraySort\Sorter;
-use Common\Query\QueryCriteria;
-use Common\Query\QueryResult;
+use Assert\Assertion;
+use Common\Domain\ArraySort\Sorter;
+use Common\Domain\Query\QueryCriteria;
+use Common\Domain\Query\QueryResult;
 
 class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
 {
     private const XML_URL = 'http://feeds.spotahome.com/trovit-Ireland.xml';
+
     /**
      * @var Sorter
      */
@@ -30,6 +32,8 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
     {
         $apartments = $this->getXmlArray();
 
+        $apartments = $this->removeUnusedFields($apartments);
+
         $results = $this->sorter->sortByField($queryCriteria->ordinationField(), $apartments);
 
         list($totalResults, $totalPages, $resultsCount, $pageResults) = $this->getPagination($queryCriteria, $results);
@@ -47,20 +51,7 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
         $json = json_encode($xml);
         $array = json_decode($json,TRUE);
 
-        $arrayResult = [];
-        foreach ($array['ad'] as $element) {
-            $resultWithNeedleFields = [
-                'id' => $element['id'],
-                'link' => $element['url'],
-                'title' => $element['title'],
-                'city' => $element['city'],
-                'mainImage' => $element['pictures']['picture'][0]['picture_url'],
-            ];
-
-            array_push($arrayResult, $resultWithNeedleFields);
-        }
-
-        return $arrayResult;
+        return $array;
     }
 
     /**
@@ -114,5 +105,23 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
             }
         }
         return array($totalResults, $totalPages, $resultsCount, $pageResults);
+    }
+
+    private function removeUnusedFields(array $apartments)
+    {
+        $arrayResult = [];
+        foreach ($apartments['ad'] as $apartment) {
+            $resultWithNeedleFields = [
+                'id' => $apartment['id'],
+                'link' => $apartment['url'],
+                'title' => $apartment['title'],
+                'city' => $apartment['city'],
+                'mainImage' => $apartment['pictures']['picture'][0]['picture_url'],
+            ];
+
+            array_push($arrayResult, $resultWithNeedleFields);
+        }
+
+        return $arrayResult;
     }
 }

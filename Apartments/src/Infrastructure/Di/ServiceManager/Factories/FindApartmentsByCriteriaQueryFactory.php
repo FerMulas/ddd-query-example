@@ -3,7 +3,7 @@
 namespace Apartments\Infrastructure\Di\ServiceManager\Factories;
 
 use Apartments\Infrastructure\Query\XML\XmlFindApartmentsByCriteriaQuery;
-use Common\ArraySort\Sorter;
+use Common\Domain\ArraySort\Sorter;
 use Psr\Container\ContainerInterface;
 
 class FindApartmentsByCriteriaQueryFactory

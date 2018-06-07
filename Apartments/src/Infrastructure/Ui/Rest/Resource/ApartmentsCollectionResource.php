@@ -6,6 +6,7 @@ use Apartments\Application\Query\FindApartmentsByCriteriaQuery;
 use Apartments\Application\Service\GetApartmentsRequest;
 use Apartments\Application\Service\GetApartmentsService;
 use Apartments\Infrastructure\Ui\Rest\Middleware\AbstractRestFulMiddleware;
+use Common\Domain\ArraySort\FieldNotFoundSortException;
 use Lukasoppermann\Httpstatus\Httpstatuscodes;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -29,6 +30,8 @@ class ApartmentsCollectionResource extends AbstractRestFulMiddleware
                     $urlQueryParameters['page'] ?? 1,
                     $urlQueryParameters['pageSize'] ?? FindApartmentsByCriteriaQuery::PAGE_SIZE)
             );
+        } catch (FieldNotFoundSortException $exception) {
+            return new JsonResponse($exception->getMessage(), Httpstatuscodes::HTTP_NOT_FOUND);
         } catch (\Exception $exception) {
             return new JsonResponse($exception->getMessage(), Httpstatuscodes::HTTP_BAD_REQUEST);
         }
