@@ -29,7 +29,7 @@ class GetApartmentsService implements ApplicationService
      */
     public function execute($request = null)
     {
-        $apartmentList = $this->findApartmentsByCriteriaQuery->find($request->criteria());
+        $apartmentList = $this->findApartmentsByCriteriaQuery->find($request->criteria())->getJsonData();
 
         return $apartmentList;
     }
