@@ -25,3 +25,14 @@ services:
     container_name: spotahome-exercise-api
     links:
      - php
+
+  nginx_client:
+    build: ./docker/frontendNginx
+    ports:
+      - "8091:80"
+    volumes:
+      - ./public:/var/www/html
+      - ./docker/frontendNginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    container_name: spotahome-exercise-client
+    links:
+     - php
