@@ -19,20 +19,34 @@ class QueryCriteria
      * @var int
      */
     private $pageSize;
+    /**
+     * @var string
+     */
+    private $ordinationDirection;
 
     /**
      * QueryCriteria constructor.
      * @param array $filter
      * @param string $ordinationField
+     * @param string $ordinationDirection
      * @param int $page
      * @param int $pageSize
      */
-    public function __construct(array $filter, string $ordinationField, int $page, int $pageSize)
+    public function __construct(array $filter, string $ordinationField, string $ordinationDirection, int $page, int $pageSize)
     {
         $this->filter = $filter;
         $this->ordinationField = $ordinationField;
         $this->page = $page;
         $this->pageSize = $pageSize;
+        $this->ordinationDirection = $ordinationDirection;
+    }
+
+    /**
+     * @return string
+     */
+    public function ordinationDirection(): string
+    {
+        return $this->ordinationDirection;
     }
 
     /**

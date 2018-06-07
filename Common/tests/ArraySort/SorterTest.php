@@ -2,7 +2,7 @@
 
 namespace CommonTests\ArraySort;
 
-use Common\ArraySort\Sorter;
+use Common\Domain\ArraySort\Sorter;
 use PHPUnit\Framework\TestCase;
 
 class SorterTest extends TestCase
@@ -69,7 +69,7 @@ class SorterTest extends TestCase
             ]
         ];
         
-        $result = $this->arraySorter->sortByField('id', $sourceArray);
+        $result = $this->arraySorter->sortByField('id', 'ASC', $sourceArray);
 
         $this->assertEquals($expectedResult, $result);
     }
@@ -126,7 +126,64 @@ class SorterTest extends TestCase
             ]
         ];
 
-        $result = $this->arraySorter->sortByField('city', $sourceArray);
+        $result = $this->arraySorter->sortByField('city', 'ASC', $sourceArray);
+
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnSortedArrayByIdDESC()
+    {
+        $expectedResult = [
+            [
+                'id' => '00005',
+                'city' => 'California'
+            ],
+            [
+                'id' => '00004',
+                'city' => 'Cuenca'
+            ],
+            [
+                'id' => '00003',
+                'city' => 'Londres'
+            ],
+            [
+                'id' => '00002',
+                'city' => 'Paris'
+            ],
+            [
+                'id' => '00001',
+                'city' => 'Madrid'
+            ]
+        ];
+
+        $sourceArray = [
+            [
+                'id' => '00002',
+                'city' => 'Paris'
+            ],
+            [
+                'id' => '00003',
+                'city' => 'Londres'
+            ],
+            [
+                'id' => '00001',
+                'city' => 'Madrid'
+            ],
+
+            [
+                'id' => '00005',
+                'city' => 'California'
+            ],
+            [
+                'id' => '00004',
+                'city' => 'Cuenca'
+            ]
+        ];
+
+        $result = $this->arraySorter->sortByField('id', 'DESC', $sourceArray);
 
         $this->assertEquals($expectedResult, $result);
     }
