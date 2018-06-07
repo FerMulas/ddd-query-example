@@ -30,7 +30,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "ApartmentsTest\\": "Apartments/tests/"
+      "ApartmentsTest\\": "Apartments/tests/",
+      "CommonTest\\": "Common/tests/"
     }
   },
   "config": {

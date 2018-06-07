@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+      args:
+        UNAME: $USER
+    volumes:
+      - ./Apartments:/var/www/html/spotahome-exercise/Apartments
+      - ./Common:/var/www/html/spotahome-exercise/Common
+      - ./composer.json:/var/www/html/spotahome-exercise/composer.json
+      - ./composer.phar:/var/www/html/spotahome-exercise/composer.phar
+      - ./phpunit.xml.dist:/var/www/html/spotahome-exercise/phpunit.xml.dist
+    container_name: spotahome-exercise-php
+
+  nginx_api:
+    build: ./docker/backendNginx
+    ports:
+      - "8090:80"
+    volumes:
+      - ./Apartments/:/var/www/html/spotahome-exercise
+      - ./docker/backendNginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    container_name: spotahome-exercise-api
+    links:
+     - php
