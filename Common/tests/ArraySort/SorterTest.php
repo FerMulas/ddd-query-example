@@ -187,4 +187,71 @@ class SorterTest extends TestCase
 
         $this->assertEquals($expectedResult, $result);
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnSortedArrayByNumericFieldASC()
+    {
+        $expectedResult = [
+            [
+                'id' => 5,
+                'price' => 50.50,
+                'city' => 'California'
+            ],
+            [
+                'id' => 4,
+                'price' => 55.50,
+                'city' => 'Cuenca'
+            ],
+            [
+                'id' => 3,
+                'price' => 650,
+                'city' => 'Londres'
+            ],
+            [
+                'id' => 2,
+                'price' => 750.50,
+                'city' => 'Paris'
+            ],
+            [
+                'id' => 1,
+                'price' => 1750,
+                'city' => 'Madrid'
+            ]
+        ];
+
+        $sourceArray = [
+            [
+                'id' => 2,
+                'price' => 750.50,
+                'city' => 'Paris'
+            ],
+            [
+                'id' => 3,
+                'price' => 650,
+                'city' => 'Londres'
+            ],
+            [
+                'id' => 1,
+                'price' => 1750,
+                'city' => 'Madrid'
+            ],
+
+            [
+                'id' => 5,
+                'price' => 50.50,
+                'city' => 'California'
+            ],
+            [
+                'id' => 4,
+                'price' => 55.50,
+                'city' => 'Cuenca'
+            ]
+        ];
+
+        $result = $this->arraySorter->sortByField('price', 'ASC', $sourceArray);
+
+        $this->assertEquals($expectedResult, $result);
+    }
 }
