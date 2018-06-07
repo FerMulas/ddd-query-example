@@ -29,7 +29,7 @@ Query request parameters available:
 - ordinationField
 - ordinationDirection
 
-Default values
+If the request does not contains one or more of the parameters available they will take the following default values:
 - page: 1
 - pageSize: 10
 - ordinationField: 'id'
