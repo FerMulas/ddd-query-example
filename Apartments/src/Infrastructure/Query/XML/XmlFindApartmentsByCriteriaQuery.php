@@ -28,7 +28,7 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
 
     public function find(QueryCriteria $queryCriteria): QueryResult
     {
-        $apartments = $this->getXmlArray()['ad'];
+        $apartments = $this->getXmlArray();
 
         $results = $this->sorter->sortByField($queryCriteria->ordinationField(), $apartments);
 
@@ -47,7 +47,20 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
         $json = json_encode($xml);
         $array = json_decode($json,TRUE);
 
-        return $array;
+        $arrayResult = [];
+        foreach ($array['ad'] as $element) {
+            $resultWithNeedleFields = [
+                'id' => $element['id'],
+                'link' => $element['url'],
+                'title' => $element['title'],
+                'city' => $element['city'],
+                'mainImage' => $element['pictures']['picture'][0]['picture_url'],
+            ];
+
+            array_push($arrayResult, $resultWithNeedleFields);
+        }
+
+        return $arrayResult;
     }
 
     /**
