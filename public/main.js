@@ -79,6 +79,8 @@ function reset(resetAll) {
     error.innerHTML = "";
     apartmentTableData.innerHTML = "";
 
+    currentPage = 1;
+
     if (document.contains(document.getElementById("paginatorList"))) {
         document.getElementById("paginatorList").remove();
     }
@@ -158,7 +160,7 @@ function previousPage() {
     }
 
     getAppartments();
-}
+}Float
 
 function setActivePage() {
     var pages = document.getElementById('paginatorList').getElementsByTagName("li");
