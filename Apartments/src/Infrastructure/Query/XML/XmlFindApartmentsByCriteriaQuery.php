@@ -28,7 +28,7 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
 
     public function find(QueryCriteria $queryCriteria): QueryResult
     {
-        $apartments = $this->getXmlArray();
+        $apartments = $this->getXmlArray()['ad'];
 
         $resultsCount = 0;
         $totalResults = 0;
@@ -36,9 +36,51 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
         $page = $queryCriteria->page();
 
         $results = $this->sorter->sortByField($queryCriteria->ordinationField(), $apartments);
-        $pageResults = [];
-        $resultList = [];
 
+        list($totalResults, $totalPages, $resultsCount, $pageResults) = $this->getPagination($queryCriteria, $results, $totalResults, $resultsCount);
+
+        $resultList = $this->ConvertResultsFormat($pageResults);
+
+        return new QueryResult($resultsCount, $totalResults, $page, $totalPages, new \ArrayIterator($resultList));
+    }
+
+    public function getXmlArray()
+    {
+        $result = file_get_contents(self::XML_URL);
+
+        $xml = simplexml_load_string($result, "SimpleXMLElement", LIBXML_NOCDATA);
+        $json = json_encode($xml);
+        $array = json_decode($json,TRUE);
+
+        return $array;
+    }
+
+    /**
+     * @param $pageResults
+     * @return mixed
+     */
+    private function ConvertResultsFormat($pageResults)
+    {
+        foreach ($pageResults as $result) {
+            $res = [
+                'id' => $result['id'],
+                'data' => json_encode($result, true)
+            ];
+
+            array_push($resultList, $res);
+        }
+        return $resultList;
+    }
+
+    /**
+     * @param QueryCriteria $queryCriteria
+     * @param $results
+     * @param $totalResults
+     * @param $resultsCount
+     * @return array
+     */
+    private function getPagination(QueryCriteria $queryCriteria, $results, $totalResults, $resultsCount): array
+    {
         foreach ($results as $apartment) {
             $found = true;
             $filterList = $queryCriteria->filter();
@@ -58,42 +100,6 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
                 array_push($pageResults, $apartment);
             }
         }
-
-
-
-        foreach ($pageResults as $result) {
-            $res = [
-                'id' => $result['id'],
-                'data' => json_encode($result, true)
-            ];
-
-            array_push($resultList, $res);
-        }
-
-
-
-        return new QueryResult($resultsCount, $totalResults, $page, $totalPages, new \ArrayIterator($resultList));
-    }
-
-    private function getXmlArray(): array
-    {
-        $xmlArray = [
-            [
-                'id' => '95539',
-                'title' => 'Furnished room for rent in a 2 bedroom apartment close to Phoenix Park, females only',
-                'link' => 'https://www.spotahome.com/dublin/for-rent:apartments/95539?utm_source=trovit&utm_medium=cffeeds&utm_campaign=normalads',
-                'city' => 'dublin',
-                'mainImage' => 'https://d1052pu3rm1xk9.cloudfront.net/fsosw_960_540_verified_ur_6_50/16284d3cea4828fe607e61a8da465da14ff717188f474c159b81068e.jpg',
-            ],
-           [
-                'id' => '95544',
-                'title' => 'Beds to rent in 2 bedrooms in a flat in Broadstone, All Utilities Included',
-                'link' => 'https://www.spotahome.com/dublin/for-rent:apartments/95544?utm_source=trovit&utm_medium=cffeeds&utm_campaign=normalads',
-                'city' => 'dublin',
-                'mainImage' => 'https://d1052pu3rm1xk9.cloudfront.net/fsosw_960_540_verified_ur_6_50/186909b8726eb243d20dda8ca69a10438ad82bfbcded4a45d95f73d0.jpg',
-            ]
-        ];
-
-        return $xmlArray;
+        return array($totalResults, $totalPages, $resultsCount, $pageResults);
     }
 }
