@@ -11,14 +11,23 @@ class GetApartmentsRequest
      */
     private $criteria;
 
+    /**
+     * GetApartmentsRequest constructor.
+     * @param array $filter
+     * @param string $ordination
+     * @param string $ordinationDirection
+     * @param int $page
+     * @param int $pageSize
+     */
     public function __construct(
         array $filter,
         string $ordination,
+        string $ordinationDirection,
         int $page,
         int $pageSize
     )
     {
-        $this->criteria = new QueryCriteria($filter, $ordination, $page, $pageSize);
+        $this->criteria = new QueryCriteria($filter, $ordination, $ordinationDirection, $page, $pageSize);
     }
 
     /**

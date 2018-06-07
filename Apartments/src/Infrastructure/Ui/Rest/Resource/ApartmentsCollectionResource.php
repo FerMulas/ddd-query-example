@@ -27,6 +27,7 @@ class ApartmentsCollectionResource extends AbstractRestFulMiddleware
                 new GetApartmentsRequest(
                     [],
                     $urlQueryParameters['ordinationField'] ?? 'id',
+                    $urlQueryParameters['ordinationDirection'] ?? 'ASC',
                     $urlQueryParameters['page'] ?? 1,
                     $urlQueryParameters['pageSize'] ?? FindApartmentsByCriteriaQuery::PAGE_SIZE)
             );

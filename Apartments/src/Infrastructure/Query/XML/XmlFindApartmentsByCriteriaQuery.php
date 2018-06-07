@@ -3,7 +3,6 @@
 namespace Apartments\Infrastructure\Query\XML;
 
 use Apartments\Application\Query\FindApartmentsByCriteriaQuery;
-use Assert\Assertion;
 use Common\Domain\ArraySort\Sorter;
 use Common\Domain\Query\QueryCriteria;
 use Common\Domain\Query\QueryResult;
@@ -34,13 +33,23 @@ class XmlFindApartmentsByCriteriaQuery implements FindApartmentsByCriteriaQuery
 
         $apartments = $this->removeUnusedFields($apartments);
 
-        $results = $this->sorter->sortByField($queryCriteria->ordinationField(), $apartments);
+        $results = $this->sorter->sortByField(
+            $queryCriteria->ordinationField(),
+            $queryCriteria->ordinationDirection(),
+            $apartments
+        );
 
         list($totalResults, $totalPages, $resultsCount, $pageResults) = $this->getPagination($queryCriteria, $results);
 
         $resultList = $this->ConvertResultsFormat($pageResults);
 
-        return new QueryResult($resultsCount, $totalResults, $queryCriteria->page(), $totalPages, new \ArrayIterator($resultList));
+        return new QueryResult(
+            $resultsCount,
+            $totalResults,
+            $queryCriteria->page(),
+            $totalPages,
+            new \ArrayIterator($resultList)
+        );
     }
 
     public function getXmlArray()
