@@ -1,5 +1,5 @@
-# Spotahome exercise app
-A spotahome exercise
+# DDD query example
+A DDD query example
 
 This my provided solution to the exercise. I included a __run.sh__ script to easily deploy it using docker. This script is located at __$ProjectPath/docker/run.sh__. To run it just go to the project path and execute the next command:
 
